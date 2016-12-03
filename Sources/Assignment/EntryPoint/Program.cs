@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Linq;  
 
 namespace EntryPoint
 {
@@ -38,11 +38,66 @@ namespace EntryPoint
       }
       goto read_input;
     }
-
+        //#TODO
     private static IEnumerable<Vector2> SortSpecialBuildingsByDistance(Vector2 house, IEnumerable<Vector2> specialBuildings)
-    {
-      return specialBuildings.OrderBy(v => Vector2.Distance(v, house));
+    {                                                                
+        Vector2[] buildings = new Vector2[50];      
+        int i = 0;
+        foreach(var item in specialBuildings)
+        {
+            buildings[i] = item;
+            i++;
+        }
+
+        SplitnSort(buildings,0,49,house);
+
+        IEnumerable<Vector2> sortedBuildings;
+        sortedBuildings = buildings;
+        return sortedBuildings;
+//            return specialBuildings.OrderBy(v => Vector2.Distance(v, house));
     }
+
+    static void mergeSort(Vector2[]number, int low, int mid, int high, Vector2 house)
+    {
+        Vector2[] temp = new Vector2[100];
+        int i, pos, l_end, h;
+        pos = low;
+        l_end = (mid - 1);
+        h = (high - low + 1);
+
+        while ((low <= l_end) && (mid <= high)){ 
+            if (Vector2.Distance(number[low], house) <= Vector2.Distance(number[mid], house)){
+                temp[pos++] = number[low++];
+            }else{
+                temp[pos++] = number[mid++];
+            }
+        }
+
+        while (low <= l_end){
+            temp[pos++] = number[low++];
+        }
+        while (mid <= high){
+            temp[pos++] = number[mid++];
+        }
+        for (i = 0; i < h; i++){
+            number[high] = temp[high];
+            high--;
+        }
+
+    }
+
+    static void SplitnSort(Vector2[]number, int low, int high, Vector2 house)
+    {
+        int mid;
+        if (high > low){
+            mid = (low + high) / 2;
+            SplitnSort(number, low, mid, house);
+            SplitnSort(number, mid + 1, high, house);
+            mergeSort(number, low, mid + 1, high, house);
+        }
+    }
+
+
 
     private static IEnumerable<IEnumerable<Vector2>> FindSpecialBuildingsWithinDistanceFromHouse(
       IEnumerable<Vector2> specialBuildings, 
