@@ -57,16 +57,24 @@ namespace EntryPoint
 //            return specialBuildings.OrderBy(v => Vector2.Distance(v, house));
     }
 
-    static void mergeSort(Vector2[]number, int low, int mid, int high, Vector2 house)
+      static Double get_dist(Vector2 building, Vector2 house )
+      {
+          Double Distance;
+          Distance = Math.Sqrt(Math.Pow(house.X - building.X, 2) + Math.Pow(house.Y - building.Y, 2));
+          return Distance;
+      }
+
+      static void mergeSort(Vector2[]number, int low, int mid, int high, Vector2 house)
     {
-        Vector2[] temp = new Vector2[100];
+        Vector2[] temp = new Vector2[50];
         int i, pos, l_end, h;
         pos = low;
         l_end = (mid - 1);
         h = (high - low + 1);
 
         while ((low <= l_end) && (mid <= high)){ 
-            if (Vector2.Distance(number[low], house) <= Vector2.Distance(number[mid], house)){
+            if (get_dist(number[low],house) <= get_dist(number[mid], house))
+            {
                 temp[pos++] = number[low++];
             }else{
                 temp[pos++] = number[mid++];
@@ -99,7 +107,7 @@ namespace EntryPoint
 
 
 
-    private static IEnumerable<IEnumerable<Vector2>> FindSpecialBuildingsWithinDistanceFromHouse(
+     private static IEnumerable<IEnumerable<Vector2>> FindSpecialBuildingsWithinDistanceFromHouse(
       IEnumerable<Vector2> specialBuildings, 
       IEnumerable<Tuple<Vector2, float>> housesAndDistances)
     {
