@@ -38,7 +38,7 @@ namespace EntryPoint
       }
       goto read_input;
     }
-        //#TODO
+       
     private static IEnumerable<Vector2> SortSpecialBuildingsByDistance(Vector2 house, IEnumerable<Vector2> specialBuildings)
     {                                                                
         Vector2[] buildings = new Vector2[50];      
@@ -57,13 +57,6 @@ namespace EntryPoint
 //            return specialBuildings.OrderBy(v => Vector2.Distance(v, house));
     }
 
-      static Double get_dist(Vector2 building, Vector2 house )
-      {
-          Double Distance;
-          Distance = Math.Sqrt(Math.Pow(house.X - building.X, 2) + Math.Pow(house.Y - building.Y, 2));
-          return Distance;
-      }
-
       static void mergeSort(Vector2[]number, int low, int mid, int high, Vector2 house)
     {
         Vector2[] temp = new Vector2[50];
@@ -73,7 +66,7 @@ namespace EntryPoint
         h = (high - low + 1);
 
         while ((low <= l_end) && (mid <= high)){ 
-            if (get_dist(number[low],house) <= get_dist(number[mid], house))
+            if (Dist.get_dist(number[low],house) <= Dist.get_dist(number[mid], house))
             {
                 temp[pos++] = number[low++];
             }else{
@@ -106,19 +99,22 @@ namespace EntryPoint
     }
 
 
-
      private static IEnumerable<IEnumerable<Vector2>> FindSpecialBuildingsWithinDistanceFromHouse(
       IEnumerable<Vector2> specialBuildings, 
       IEnumerable<Tuple<Vector2, float>> housesAndDistances)
-    {
-      return
-          from h in housesAndDistances
-          select
-            from s in specialBuildings
-            where Vector2.Distance(h.Item1, s) <= h.Item2
-            select s;
-    }
+     {                              
+         Tree tree = new Tree(specialBuildings.ToArray());
 
+         return tree.Traverse(tree, housesAndDistances);
+
+//      return
+//          from h in housesAndDistances
+//          select
+//            from s in specialBuildings
+//            where Vector2.Distance(h.Item1, s) <= h.Item2
+//            select s;
+     }
+                        
     private static IEnumerable<Tuple<Vector2, Vector2>> FindRoute(Vector2 startingBuilding, 
       Vector2 destinationBuilding, IEnumerable<Tuple<Vector2, Vector2>> roads)
     {
@@ -132,7 +128,7 @@ namespace EntryPoint
       }
       return fakeBestPath;
     }
-
+                        
     private static IEnumerable<IEnumerable<Tuple<Vector2, Vector2>>> FindRoutesToAll(Vector2 startingBuilding, 
       IEnumerable<Vector2> destinationBuildings, IEnumerable<Tuple<Vector2, Vector2>> roads)
     {
