@@ -118,6 +118,14 @@ namespace EntryPoint
     private static IEnumerable<Tuple<Vector2, Vector2>> FindRoute(Vector2 startingBuilding, 
       Vector2 destinationBuilding, IEnumerable<Tuple<Vector2, Vector2>> roads)
     {
+//        foreach (var i in roads)
+//        {
+//            Console.WriteLine(i);
+//        }
+//        Console.WriteLine(startingBuilding);
+//        Console.WriteLine(destinationBuilding);
+//        MatrixCreatrix mc = new MatrixCreatrix(startingBuilding, destinationBuilding, roads);
+//        return mc.PleaseWork;
       var startingRoad = roads.Where(x => x.Item1.Equals(startingBuilding)).First();
       List<Tuple<Vector2, Vector2>> fakeBestPath = new List<Tuple<Vector2, Vector2>>() { startingRoad };
       var prevRoad = startingRoad;

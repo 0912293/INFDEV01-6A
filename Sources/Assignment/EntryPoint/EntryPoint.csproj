@@ -45,6 +45,11 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Dijkstur.cs" />
+    <Compile Include="Edgy.cs" />
+    <Compile Include="Graphity.cs" />
+    <Compile Include="GraphNode.cs" />
+    <Compile Include="MatrixCreatrix.cs" />
     <Compile Include="Dist.cs" />
     <Compile Include="Node.cs" />
     <Compile Include="Tree.cs" />

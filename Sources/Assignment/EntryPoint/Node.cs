@@ -12,6 +12,7 @@ namespace EntryPoint
         private Vector2 _vec2;   
         private Node _left;    
         private Node _right;
+        private Tuple<Vector2, Vector2> _tup;
                                     
         public Node(Vector2 v)     
         {                           
@@ -34,6 +35,12 @@ namespace EntryPoint
         {     
             get { return _left; }        
             set { _left = value; }    
-        }                         
+        }
+
+        public Tuple<Vector2, Vector2> Tup
+        {
+            get { return _tup; }
+            set { _tup = value; }
+        }
     }
 }    
